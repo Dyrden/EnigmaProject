@@ -11,41 +11,35 @@ public class Main {
 
 
     public void run() {
-        System.out.println(encryptMessage("TESTER", 5));
-
-        /*
-        Scanner sc = new Scanner(System.in);
-        String input;
+        System.out.println(encryptMessage("TESTER TESTER", 5));
 
 
-        System.out.println("Input text to encrypt");
-        input = sc.nextLine();
-
-        if (input.equalsIgnoreCase("encrypt")) {
-            System.out.println("Input text to encrypt");
-            input = sc.nextLine();
-
-
-            // run encrypting
-
-        } else {
-
-            // run decrypting
-        }
-
-
-        System.out.println("Input text to encrypt");
-        int shift = sc.nextInt();
-
-        * */
+        dispalyInput();
 
     }
 
+    public void dispalyInput() {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Type in what you want to do");
+        System.out.println("- e | E | Encrypt : Encrypt a message");
+        System.out.println("- d | D | Decrypt : Decrypt a message");
+        switch (sc.nextLine()) {
+            case "E","e","Encrypt" -> System.out.println("Encrypt");
+            case "D","d","Decrypt" -> System.out.println("Decrypt");
+            default -> dispalyInput();
+        }
+    }
+
+    public void runEncrypt() {
+        System.out.println();
+    }
 
 
     public String encryptMessage(String str, int shift) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < str.length(); i++) {
+
             char character = str.charAt(i);
             char shiftedCharacter = findLetterByNumber(findNumberByLetter(character) + shift);
             sb.append(shiftedCharacter);
