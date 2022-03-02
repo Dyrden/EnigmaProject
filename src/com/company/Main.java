@@ -22,6 +22,7 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         return sc.nextLine();
     }
+
     public String displayAskInput(String str) {
         System.out.println(str);
         Scanner sc = new Scanner(System.in);
@@ -49,12 +50,13 @@ public class Main {
         System.out.println(" 2 | d | D | Decrypt : Decrypt a message");
         System.out.println(" 3 | b | back : Go back");
         switch (displayAskInput()) {
-            case "1","E", "e", "Encrypt" -> displayCaesarEncrypt();
-            case "2","D", "d", "Decrypt" -> displayCaesarDecrypt();
+            case "1", "E", "e", "Encrypt" -> displayCaesarEncrypt();
+            case "2", "D", "d", "Decrypt" -> displayCaesarDecrypt();
             case "3", "back", "b" -> displayEnigma();
             default -> displayCaesarChoice();
         }
     }
+
     public void displayCaesarEncrypt() {
         String inputMessage = displayAskInput("Text in the message you want to encrypt in 'CAPITAL LETTERS'");
         int inputShift = Integer.parseInt(displayAskInput("input the number to shift with"));
@@ -62,6 +64,7 @@ public class Main {
         System.out.printf("Your encrypted message is '%s' with shift of '%s'\n", encryptedMessage, inputShift);
         System.out.println("-".repeat(45));
     }
+
     public void displayCaesarDecrypt() {
         String inputMessage = displayAskInput("Text in the message you want to decrypt in 'CAPITAL LETTERS'");
         int inputShift = Integer.parseInt(displayAskInput("input the shift number"));
@@ -74,26 +77,21 @@ public class Main {
     public String cipherMessage(String str, int shift, boolean ciphered) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < str.length(); i++) {
-            if (ciphered) {
-                sb.append(decryptLetter(str.charAt(i), shift));
-            } else {
-                sb.append(encryptLetter(str.charAt(i), shift));
-            }
+            sb.append(shiftLetter(str.charAt(i), shift, ciphered));
         }
         return sb.toString();
     }
 
 
-    public char encryptLetter(char letter, int shift) {
-        int shiftedCharacterNumber = findNumberByLetter(letter) + shift;
+    public char shiftLetter(char letter, int shift, boolean ciphered) {
+        int shiftedCharacterNumber;
+        if (ciphered) {
+            shiftedCharacterNumber = findNumberByLetter(letter) - shift;
+        } else
+            shiftedCharacterNumber = findNumberByLetter(letter) + shift;
+
         return findLetterByNumber(shiftedCharacterNumber);
     }
-
-    public char decryptLetter(char letter, int shift) {
-        int shiftedCharacterNumber = findNumberByLetter(letter) - shift;
-        return findLetterByNumber(shiftedCharacterNumber);
-    }
-
 
 
     final String ALPHABET = " ABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅ";
