@@ -13,10 +13,10 @@ public class Main {
     }
 
     public void run() {
-        test();
+        enigma();
     }
 
-    public void test() {
+    public void enigma() {
         while (running) displayEnigma();
     }
 
@@ -63,7 +63,7 @@ public class Main {
     public void displayCaesarEncrypt() {
         String inputMessage = displayAskInput("Text in the message you want to encrypt").toUpperCase(Locale.ROOT);
         int inputShift = Integer.parseInt(displayAskInput("input the number to shift with"));
-        String encryptedMessage = cipherCaesarMessage(inputMessage, inputShift, false);
+        String encryptedMessage = cipherMessageCaesar(inputMessage, inputShift, false);
         System.out.printf("Your encrypted message is '%s' with shift of '%s'\n", encryptedMessage, inputShift);
         System.out.println("-".repeat(45));
     }
@@ -71,7 +71,7 @@ public class Main {
     public void displayCaesarDecrypt() {
         String inputMessage = displayAskInput("Text in the message you want to decrypt in 'CAPITAL LETTERS'");
         int inputShift = Integer.parseInt(displayAskInput("input the shift number"));
-        String encryptedMessage = cipherCaesarMessage(inputMessage, inputShift, true);
+        String encryptedMessage = cipherMessageCaesar(inputMessage, inputShift, true);
         System.out.printf("Your decrypted message shifted by '%s' is '%s'\n", inputShift, encryptedMessage);
         System.out.println("-".repeat(45));
     }
@@ -94,17 +94,17 @@ public class Main {
     public void displayVigenereEncrypt() {
         String text = displayAskInput("Write your text");
         String password = displayAskInput("Write your password");
-        System.out.println(cipherVigenereMessage(text, password, false));
+        System.out.println(cipherMessageVigenere(text, password, false));
     }
 
     public void displayVigenereDecrypt() {
         String text = displayAskInput("Write your encrypted text");
         String password = displayAskInput("Write your password");
-        System.out.println(cipherVigenereMessage(text, password, true));
+        System.out.println(cipherMessageVigenere(text, password, true));
     }
 
 
-    public String cipherCaesarMessage(String str, int shift, boolean ciphered) {
+    public String cipherMessageCaesar(String str, int shift, boolean ciphered) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < str.length(); i++) {
             sb.append(shiftLetter(str.charAt(i), shift, ciphered));
@@ -112,7 +112,7 @@ public class Main {
         return sb.toString();
     }
 
-    public String cipherVigenereMessage(String text, String password, boolean ciphered) {
+    public String cipherMessageVigenere(String text, String password, boolean ciphered) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < text.length(); i++) {
             char charAtIndex = password.charAt(i % password.length());
@@ -130,6 +130,7 @@ public class Main {
 
 
     }
+
 
     final String ALPHABET = " ABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅ";
 
