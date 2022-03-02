@@ -4,47 +4,62 @@ import java.util.Scanner;
 
 public class Main {
 
-
     public static void main(String[] args) {
         new Main().run();
     }
 
-
     public void run() {
-        System.out.println(encryptMessage("TESTER TESTER", 5));
-
-
-        dispalyInput();
-
+        test();
     }
 
-    public void dispalyInput() {
-        Scanner sc = new Scanner(System.in);
+    public void test() {
+        displayChoice();
+    }
 
+    public String displayAskInput() {
+        Scanner sc = new Scanner(System.in);
+        return sc.nextLine();
+    }
+
+    public String displayAskInput(String str) {
+        System.out.println(str);
+        Scanner sc = new Scanner(System.in);
+        return sc.nextLine();
+    }
+
+    public void displayChoice() {
         System.out.println("Type in what you want to do");
         System.out.println("- e | E | Encrypt : Encrypt a message");
         System.out.println("- d | D | Decrypt : Decrypt a message");
-        switch (sc.nextLine()) {
-            case "E","e","Encrypt" -> System.out.println("Encrypt");
+        switch (displayAskInput()) {
+            case "E","e","Encrypt" -> displayEncrypt();
             case "D","d","Decrypt" -> System.out.println("Decrypt");
-            default -> dispalyInput();
+            default -> displayChoice();
         }
     }
 
-    public void runEncrypt() {
-        System.out.println();
+
+
+
+    public void displayEncrypt() {
+        String inputMessage = displayAskInput("Text in the message you want to encrypt in 'CAPITAL LETTERS'");
+        int inputShift = Integer.parseInt(displayAskInput("input the number to shift with"));
+        String encryptedMessage = encryptMessage(inputMessage,inputShift);
+        System.out.printf("\nYour encrypted message is '%s' with shift of '%s'", encryptedMessage,inputShift);
     }
 
 
     public String encryptMessage(String str, int shift) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < str.length(); i++) {
-
-            char character = str.charAt(i);
-            char shiftedCharacter = findLetterByNumber(findNumberByLetter(character) + shift);
-            sb.append(shiftedCharacter);
+            sb.append(encryptLetter(str.charAt(i), shift));
         }
         return sb.toString();
+    }
+
+    public char encryptLetter(char letter, int shift) {
+        int shiftedCharacterNumber = findNumberByLetter(letter) + shift;
+        return findLetterByNumber(shiftedCharacterNumber);
     }
 
     final String ALPHABET = " ABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅ";
