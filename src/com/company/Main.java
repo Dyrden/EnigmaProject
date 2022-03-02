@@ -31,7 +31,7 @@ public class Main {
 
 
     public void displayEnigma() {
-        System.out.println("Choose one of the following");
+        System.out.println("Type in what you want to do");
         System.out.println(" 1 - Caesar");
         System.out.println(" 2 - Vignere");
         System.out.println(" 3 - Exit");
@@ -59,8 +59,8 @@ public class Main {
     }
 
     public void displayCaesarEncrypt() {
-        String inputMessage = displayAskInput("Text in the message you want to encrypt").toUpperCase();
-        int inputShift = Integer.parseInt(displayAskInput("input the number to shift with"));
+        String inputMessage = displayAskInput("Text in the message you want to encrypt:").toUpperCase();
+        int inputShift = Integer.parseInt(displayAskInput("input the number to shift with:"));
         String encryptedMessage = cipherMessageCaesar(inputMessage, inputShift, false);
         System.out.printf("Your encrypted message is '%s' with shift of '%s'\n", encryptedMessage, inputShift);
         System.out.println("-".repeat(45));
@@ -78,9 +78,9 @@ public class Main {
     public void displayVigenereChoice() {
         System.out.println("Vigenère cipher:");
         System.out.println("Type in what you want to do");
-        System.out.println(" 1: Encrypt a message");
-        System.out.println(" 2: Decrypt a message");
-        System.out.println(" 3: Go back");
+        System.out.println(" 1 : Encrypt a message");
+        System.out.println(" 2 : Decrypt a message");
+        System.out.println(" 3 : Go back");
         switch (displayAskInput()) {
             case "1" -> displayVigenereEncrypt();
             case "2" -> displayVigenereDecrypt();
@@ -90,14 +90,14 @@ public class Main {
     }
 
     public void displayVigenereEncrypt() {
-        String text = displayAskInput("Write your text");
-        String password = displayAskInput("Write your password");
+        String text = displayAskInput("Write your text:");
+        String password = displayAskInput("Write your password:");
         System.out.println(cipherMessageVigenere(text, password, false));
     }
 
     public void displayVigenereDecrypt() {
-        String text = displayAskInput("Write your encrypted text");
-        String password = displayAskInput("Write your password");
+        String text = displayAskInput("Write your encrypted text:");
+        String password = displayAskInput("Write your password:");
         System.out.println(cipherMessageVigenere(text, password, true));
     }
 
