@@ -34,17 +34,16 @@ public class Main {
         System.out.println("Welcome to Enigma, choose an cipher method");
         System.out.println(" 1 - Caesar");
         System.out.println(" 2 - Vignere");
-        //System.out.println(" 3 - ");
-        //System.out.println(" 4 - ");
         switch (displayAskInput()) {
             case "1" -> displayCaesarChoice();
-            case "2" -> System.out.println("Vignere");
+            case "2" -> displayVigenereChoice();
             default -> displayEnigma();
         }
     }
 
 
     public void displayCaesarChoice() {
+        System.out.println("Caesar cipher:");
         System.out.println("Type in what you want to do");
         System.out.println(" 1 | e | E | Encrypt : Encrypt a message");
         System.out.println(" 2 | d | D | Decrypt : Decrypt a message");
@@ -56,7 +55,6 @@ public class Main {
             default -> displayCaesarChoice();
         }
     }
-
     public void displayCaesarEncrypt() {
         String inputMessage = displayAskInput("Text in the message you want to encrypt in 'CAPITAL LETTERS'");
         int inputShift = Integer.parseInt(displayAskInput("input the number to shift with"));
@@ -64,13 +62,33 @@ public class Main {
         System.out.printf("Your encrypted message is '%s' with shift of '%s'\n", encryptedMessage, inputShift);
         System.out.println("-".repeat(45));
     }
-
     public void displayCaesarDecrypt() {
         String inputMessage = displayAskInput("Text in the message you want to decrypt in 'CAPITAL LETTERS'");
         int inputShift = Integer.parseInt(displayAskInput("input the shift number"));
         String encryptedMessage = cipherMessage(inputMessage, inputShift, true);
         System.out.printf("Your decrypted message shifted by '%s' is '%s'\n", inputShift, encryptedMessage);
         System.out.println("-".repeat(45));
+    }
+
+
+    public void displayVigenereChoice() {
+        System.out.println("Vigenère cipher:");
+        System.out.println("Type in what you want to do");
+        System.out.println(" 1 | e | E | Encrypt : Encrypt a message");
+        System.out.println(" 2 | d | D | Decrypt : Decrypt a message");
+        System.out.println(" 3 | b | back : Go back");
+        switch (displayAskInput()) {
+            case "1", "E", "e", "Encrypt" -> displayVigenereEncrypt();
+            case "2", "D", "d", "Decrypt" -> displayVigenereDecrypt();
+            case "3", "back", "b" -> displayEnigma();
+            default -> displayCaesarChoice();
+        }
+    }
+    public void displayVigenereEncrypt() {
+
+    }
+    public void displayVigenereDecrypt() {
+
     }
 
 
@@ -81,8 +99,6 @@ public class Main {
         }
         return sb.toString();
     }
-
-
     public char shiftLetter(char letter, int shift, boolean ciphered) {
         int shiftedCharacterNumber;
         if (ciphered) {
@@ -93,13 +109,10 @@ public class Main {
         return findLetterByNumber(shiftedCharacterNumber);
     }
 
-
     final String ALPHABET = " ABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅ";
-
     public char findLetterByNumber(int num) {
         return ALPHABET.charAt(num);
     }
-
     public int findNumberByLetter(char letter) {
         return ALPHABET.indexOf(letter);
     }
