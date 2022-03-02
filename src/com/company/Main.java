@@ -112,12 +112,12 @@ public class Main {
         return sb.toString();
     }
 
-    public String cipherVigenereMessage(String text, String password, boolean cipher) {
+    public String cipherVigenereMessage(String text, String password, boolean ciphered) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < text.length(); i++) {
             char charAtIndex = password.charAt(i % password.length());
             int shift = findNumberByLetter(charAtIndex);
-            sb.append(shiftLetter(text.charAt(i), shift, cipher));
+            sb.append(shiftLetter(text.charAt(i), shift, ciphered));
         }
         return sb.toString();
     }
