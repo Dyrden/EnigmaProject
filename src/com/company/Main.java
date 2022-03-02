@@ -1,11 +1,10 @@
 package com.company;
 
-import java.util.Locale;
 import java.util.Scanner;
 
 public class Main {
 
-
+    Scanner sc = new Scanner(System.in);
     boolean running = true;
 
     public static void main(String[] args) {
@@ -17,23 +16,22 @@ public class Main {
     }
 
     public void enigma() {
+        System.out.println("Welcome to Enigma, choose an cipher method");
         while (running) displayEnigma();
     }
 
     public String displayAskInput() {
-        Scanner sc = new Scanner(System.in);
         return sc.nextLine().toUpperCase();
     }
 
     public String displayAskInput(String str) {
         System.out.println(str);
-        Scanner sc = new Scanner(System.in);
         return sc.nextLine().toUpperCase();
     }
 
 
     public void displayEnigma() {
-        System.out.println("Welcome to Enigma, choose an cipher method");
+        System.out.println("Choose one of the following");
         System.out.println(" 1 - Caesar");
         System.out.println(" 2 - Vignere");
         System.out.println(" 3 - Exit");
@@ -49,19 +47,19 @@ public class Main {
     public void displayCaesarChoice() {
         System.out.println("Caesar cipher:");
         System.out.println("Type in what you want to do");
-        System.out.println(" 1 | e | E | Encrypt : Encrypt a message");
-        System.out.println(" 2 | d | D | Decrypt : Decrypt a message");
-        System.out.println(" 3 | b | back : Go back");
+        System.out.println(" 1 : Encrypt a message");
+        System.out.println(" 2 : Decrypt a message");
+        System.out.println(" 3 : Go back");
         switch (displayAskInput()) {
-            case "1", "E", "e", "Encrypt" -> displayCaesarEncrypt();
-            case "2", "D", "d", "Decrypt" -> displayCaesarDecrypt();
-            case "3", "back", "b" -> displayEnigma();
+            case "1" -> displayCaesarEncrypt();
+            case "2" -> displayCaesarDecrypt();
+            case "3" -> displayEnigma();
             default -> displayCaesarChoice();
         }
     }
 
     public void displayCaesarEncrypt() {
-        String inputMessage = displayAskInput("Text in the message you want to encrypt").toUpperCase(Locale.ROOT);
+        String inputMessage = displayAskInput("Text in the message you want to encrypt").toUpperCase();
         int inputShift = Integer.parseInt(displayAskInput("input the number to shift with"));
         String encryptedMessage = cipherMessageCaesar(inputMessage, inputShift, false);
         System.out.printf("Your encrypted message is '%s' with shift of '%s'\n", encryptedMessage, inputShift);
@@ -80,13 +78,13 @@ public class Main {
     public void displayVigenereChoice() {
         System.out.println("Vigenère cipher:");
         System.out.println("Type in what you want to do");
-        System.out.println(" 1 | e | E | Encrypt : Encrypt a message");
-        System.out.println(" 2 | d | D | Decrypt : Decrypt a message");
-        System.out.println(" 3 | b | back : Go back");
+        System.out.println(" 1: Encrypt a message");
+        System.out.println(" 2: Decrypt a message");
+        System.out.println(" 3: Go back");
         switch (displayAskInput()) {
-            case "1", "E", "e", "Encrypt" -> displayVigenereEncrypt();
-            case "2", "D", "d", "Decrypt" -> displayVigenereDecrypt();
-            case "3", "back", "b" -> displayEnigma();
+            case "1" -> displayVigenereEncrypt();
+            case "2" -> displayVigenereDecrypt();
+            case "3" -> displayEnigma();
             default -> displayCaesarChoice();
         }
     }
@@ -115,8 +113,8 @@ public class Main {
     public String cipherMessageVigenere(String text, String password, boolean ciphered) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < text.length(); i++) {
-            char charAtIndex = password.charAt(i % password.length());
-            int shift = findNumberByLetter(charAtIndex);
+            char passwordCharAtIndex = password.charAt(i % password.length());
+            int shift = findNumberByLetter(passwordCharAtIndex);
             sb.append(shiftLetter(text.charAt(i), shift, ciphered));
         }
         return sb.toString();
@@ -127,8 +125,6 @@ public class Main {
             return findLetterByNumber((findNumberByLetter(letter) - shift) % ALPHABET.length());
         } else
             return findLetterByNumber((findNumberByLetter(letter) + shift) % ALPHABET.length());
-
-
     }
 
 
